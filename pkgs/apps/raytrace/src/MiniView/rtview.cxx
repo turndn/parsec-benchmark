@@ -491,6 +491,7 @@ int main(int argc, char* argv[])
     __parsec_roi_end();
 #endif
     cout << "Done" << endl << flush;
+    std::quick_exit(0);
   }
 
   return 0;
