@@ -28,6 +28,11 @@
     # However one can use the upstream version
     x264
   ]);
+  # for ocean_ncp this seems to be not defined correctly
+  profile = pkgs.lib.optionalString (pkgs.stdenv.is64bit) ''
+    export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -DPTRDIFF_MAX=0x7fffffffffffffff"
+  '';
+
   extraOutputsToInstall = [ "dev" ];
   runScript = "bash";
 }).env
