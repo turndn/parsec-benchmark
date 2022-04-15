@@ -157,7 +157,8 @@ extern "C" struct mallinfo mallinfo() __THROW
 
 #include <new>
 
-void * operator new(size_t sz) throw (std::bad_alloc) {
+// void * operator new(size_t sz) throw (std::bad_alloc) {
+void * operator new(size_t sz) {
     void *res = scalable_malloc(sz);
 #if TBB_USE_EXCEPTIONS
     if (NULL == res)
@@ -165,7 +166,8 @@ void * operator new(size_t sz) throw (std::bad_alloc) {
 #endif /* TBB_USE_EXCEPTIONS */
     return res;
 }
-void* operator new[](size_t sz) throw (std::bad_alloc) {
+// void* operator new[](size_t sz) throw (std::bad_alloc) {
+void* operator new[](size_t sz) {
     void *res = scalable_malloc(sz);
 #if TBB_USE_EXCEPTIONS
     if (NULL == res)
@@ -303,12 +305,14 @@ __TBB_ORIG_ALLOCATOR_REPLACEMENT_WRAPPER(msvcr100);
 #pragma warning( disable : 4290 )
 #endif
 
-void * operator_new(size_t sz) throw (std::bad_alloc) {
+// void * operator_new(size_t sz) throw (std::bad_alloc) {
+void * operator_new(size_t sz) (std::bad_alloc) {
     void *res = scalable_malloc(sz);
     if (NULL == res) throw std::bad_alloc();
     return res;
 }
-void* operator_new_arr(size_t sz) throw (std::bad_alloc) {
+// void* operator_new_arr(size_t sz) throw (std::bad_alloc) {
+void* operator_new_arr(size_t sz) (std::bad_alloc) {
     void *res = scalable_malloc(sz);
     if (NULL == res) throw std::bad_alloc();
     return res;
