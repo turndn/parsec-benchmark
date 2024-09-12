@@ -1,4 +1,8 @@
-{ pkgs ? import <nixpkgs> {} }:
+let
+  nixpkgs = fetchTarball "https://github.com/NixOS/nixpkgs/tarball/nixos-20.09";
+  pkgs = import nixpkgs { config = {}; overlays = []; };
+in
+
 (pkgs.buildFHSUserEnv {
   name = "parsec";
   targetPkgs = pkgs: (with pkgs; [
